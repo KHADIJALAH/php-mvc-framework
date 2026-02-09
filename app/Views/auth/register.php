@@ -1,81 +1,56 @@
-<div class="w-full max-w-md">
-    <div class="bg-white rounded-2xl shadow-xl p-8">
-        <!-- Logo -->
+<div class="w-full max-w-md px-4">
+    <div class="bg-white rounded-2xl shadow-2xl p-8">
         <div class="text-center mb-8">
-            <a href="/" class="inline-flex items-center">
-                <span class="text-3xl font-bold text-indigo-600">PHP</span>
-                <span class="text-3xl font-bold text-gray-800">MVC</span>
-            </a>
-            <p class="text-gray-500 mt-2">Create your account</p>
+            <div class="flex items-center justify-center gap-2 mb-2">
+                <span class="material-symbols-sharp text-primary-500" style="font-size:32px">receipt_long</span>
+                <span class="text-2xl font-bold text-gray-900 tracking-tight">INVOICEFLOW</span>
+            </div>
+            <p class="text-gray-500 text-sm">Create your account to get started</p>
         </div>
-
-        <form action="/register" method="POST" class="space-y-5">
+        <form action="/register" method="POST" class="space-y-4">
             <?= csrf_field() ?>
-
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                        <i class="fas fa-user"></i>
+                        <span class="material-symbols-sharp" style="font-size:20px">person</span>
                     </span>
-                    <input type="text" name="name" required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        placeholder="Enter your name">
+                    <input type="text" name="name" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm transition" placeholder="Your full name">
                 </div>
             </div>
-
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                        <i class="fas fa-envelope"></i>
+                        <span class="material-symbols-sharp" style="font-size:20px">mail</span>
                     </span>
-                    <input type="email" name="email" required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        placeholder="Enter your email">
+                    <input type="email" name="email" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm transition" placeholder="you@example.com">
                 </div>
             </div>
-
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                        <i class="fas fa-lock"></i>
+                        <span class="material-symbols-sharp" style="font-size:20px">lock</span>
                     </span>
-                    <input type="password" name="password" required minlength="6"
-                        class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        placeholder="Create a password">
+                    <input type="password" name="password" required minlength="6" class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm transition" placeholder="Min. 6 characters">
                 </div>
             </div>
-
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Confirm Password</label>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Confirm Password</label>
                 <div class="relative">
                     <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-                        <i class="fas fa-lock"></i>
+                        <span class="material-symbols-sharp" style="font-size:20px">lock</span>
                     </span>
-                    <input type="password" name="password_confirm" required
-                        class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                        placeholder="Confirm your password">
+                    <input type="password" name="password_confirm" required class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm transition" placeholder="Confirm password">
                 </div>
             </div>
-
-            <div class="flex items-start">
-                <input type="checkbox" required class="mt-1 w-4 h-4 text-indigo-600 border-gray-300 rounded">
-                <span class="ml-2 text-sm text-gray-600">
-                    I agree to the <a href="#" class="text-indigo-600 hover:underline">Terms of Service</a>
-                    and <a href="#" class="text-indigo-600 hover:underline">Privacy Policy</a>
-                </span>
-            </div>
-
-            <button type="submit" class="w-full py-3 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+            <button type="submit" class="w-full py-3 bg-primary-500 text-white rounded-xl font-semibold hover:bg-primary-600 transition-colors text-sm shadow-lg shadow-primary-500/30">
                 Create Account
             </button>
         </form>
-
-        <p class="mt-6 text-center text-gray-600">
-            Already have an account?
-            <a href="/login" class="text-indigo-600 hover:text-indigo-700 font-medium">Sign in</a>
+        <p class="mt-6 text-center text-sm text-gray-500">
+            Already have an account? <a href="/login" class="text-primary-500 hover:text-primary-600 font-medium">Sign in</a>
         </p>
     </div>
 </div>

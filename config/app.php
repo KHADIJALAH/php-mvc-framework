@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'app_name' => 'PHP MVC Framework',
+    'app_name' => 'InvoiceFlow',
     'app_url' => 'http://localhost:8000',
 
     'db' => [

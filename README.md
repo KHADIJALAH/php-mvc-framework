@@ -1,18 +1,34 @@
-# PHP MVC Framework
+# InvoiceFlow - Freelancer Invoice & Client Management
 
-A lightweight, modern MVC framework built from scratch with PHP 8.2+. This project demonstrates core PHP concepts and software architecture skills.
+A modern, full-featured invoice management system built from scratch with PHP 8.2+ using a custom MVC framework. Designed for freelancers and small businesses to manage invoices, clients, products, and track revenue.
 
 ## Features
 
-- **Custom Router**: Support for GET, POST, PUT, DELETE with dynamic parameters
-- **MVC Architecture**: Clean separation of Models, Views, and Controllers
-- **Database ORM**: ActiveRecord-style models with PDO
-- **Authentication**: Session-based auth with password hashing
-- **Middleware**: Flexible middleware system for access control
-- **Form Validation**: Comprehensive validation with custom rules
-- **Flash Messages**: Session-based flash messaging
-- **CSRF Protection**: Built-in CSRF token generation
-- **Migrations**: Database migration system
+- **Dashboard** - Business overview with revenue stats, invoice counts, and recent activity
+- **Invoice Management** - Create, edit, send, and track invoices with multiple status (Draft, Pending, Paid, Overdue)
+- **Client Management** - Full client database with contact details and invoice history
+- **Products & Services** - Manage your offerings with pricing and units
+- **Reports & Analytics** - Monthly revenue charts, status breakdown, and top clients
+- **Authentication** - Secure login/register with password hashing
+- **Modern UI** - Clean, responsive design built with Tailwind CSS
+- **Custom MVC Framework** - Built entirely from scratch (no frameworks used)
+
+## Tech Stack
+
+- **PHP 8.2+** - Modern PHP with type hints and named arguments
+- **MySQL / MariaDB** - Relational database with PDO
+- **Tailwind CSS** - Utility-first CSS framework
+- **Material Symbols** - Google's icon library
+- **Custom MVC Architecture** - Router, Controllers, Models, Views, Middleware
+
+## Architecture Highlights
+
+- **Custom Router** - Support for GET/POST with dynamic parameters (`/invoices/{id}`)
+- **ActiveRecord ORM** - Models with validation, CRUD operations, and relationships
+- **Middleware System** - Authentication middleware for protected routes
+- **Session Management** - Flash messages, CSRF protection
+- **Database Migrations** - Version-controlled schema changes
+- **Input Sanitization** - XSS protection with `htmlspecialchars()` escaping
 
 ## Requirements
 
@@ -24,8 +40,8 @@ A lightweight, modern MVC framework built from scratch with PHP 8.2+. This proje
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/KHADIJALAH/php-mvc-framework.git
-cd php-mvc-framework
+git clone https://github.com/KHADIJALAH/invoiceflow.git
+cd invoiceflow
 ```
 
 2. Create the database:
@@ -53,96 +69,94 @@ cd public
 php -S localhost:8000
 ```
 
-6. Open http://localhost:8000 in your browser
+6. Open http://localhost:8000 and register a new account
 
 ## Project Structure
 
 ```
-php-mvc-framework/
+invoiceflow/
 ├── app/
-│   ├── Controllers/     # Application controllers
-│   ├── Core/           # Framework core classes
-│   ├── Middleware/     # Custom middlewares
-│   ├── Models/         # Database models
-│   └── Views/          # View templates
-│       ├── layouts/    # Layout templates
-│       ├── home/       # Home pages
-│       ├── auth/       # Auth pages
-│       ├── dashboard/  # Dashboard pages
-│       └── errors/     # Error pages
-├── config/             # Configuration files
+│   ├── Controllers/        # Request handlers
+│   │   ├── AuthController.php
+│   │   ├── ClientController.php
+│   │   ├── DashboardController.php
+│   │   ├── HomeController.php
+│   │   ├── InvoiceController.php
+│   │   ├── ProductController.php
+│   │   └── ReportController.php
+│   ├── Core/               # Framework engine
+│   │   ├── Application.php
+│   │   ├── Controller.php
+│   │   ├── Database.php
+│   │   ├── DbModel.php
+│   │   ├── helpers.php
+│   │   ├── Middleware.php
+│   │   ├── Model.php
+│   │   ├── Request.php
+│   │   ├── Response.php
+│   │   ├── Router.php
+│   │   ├── Session.php
+│   │   └── User.php
+│   ├── Middleware/
+│   │   └── AuthMiddleware.php
+│   ├── Models/
+│   │   ├── Client.php
+│   │   ├── Invoice.php
+│   │   ├── InvoiceItem.php
+│   │   └── Product.php
+│   └── Views/
+│       ├── layouts/        # app.php (sidebar layout), auth.php
+│       ├── auth/           # login, register, profile
+│       ├── dashboard/      # main dashboard
+│       ├── invoices/       # CRUD views + invoice detail
+│       ├── clients/        # CRUD views + client detail
+│       ├── products/       # CRUD views
+│       ├── reports/        # analytics page
+│       └── settings/       # account settings
+├── config/
+│   └── app.php             # Database & app configuration
 ├── database/
-│   └── migrations/     # Database migrations
-├── public/             # Public files (entry point)
-├── routes/             # Route definitions
-├── storage/            # Logs and uploads
-└── migrate.php         # Migration script
+│   └── migrations/         # Schema migrations
+├── public/
+│   ├── index.php           # Entry point
+│   └── .htaccess           # URL rewriting
+├── routes/
+│   └── web.php             # Route definitions
+├── storage/                # Logs & uploads
+└── migrate.php             # Migration runner
 ```
 
-## Routing
+## Screenshots
 
-Define routes in `routes/web.php`:
+### Dashboard
+Modern dashboard with revenue metrics, invoice statistics, and recent invoices table.
 
-```php
-$app->router->get('/', [HomeController::class, 'index']);
-$app->router->post('/login', [AuthController::class, 'loginPost']);
-$app->router->get('/user/{id}', [UserController::class, 'show']);
-```
+### Invoice Detail
+Professional invoice view with client info, line items, totals, and status management.
 
-## Controllers
+### Client Management
+Client cards with contact info and linked invoice history.
 
-```php
-class HomeController extends Controller
-{
-    public function index(Request $request, Response $response): string
-    {
-        return $this->renderWithLayout('home/index', [
-            'title' => 'Welcome'
-        ]);
-    }
-}
-```
+## API Routes
 
-## Models
-
-```php
-class User extends DbModel
-{
-    public static function tableName(): string
-    {
-        return 'users';
-    }
-
-    public function rules(): array
-    {
-        return [
-            'name' => [self::RULE_REQUIRED],
-            'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
-        ];
-    }
-}
-```
-
-## Middlewares
-
-```php
-class AuthMiddleware extends Middleware
-{
-    public function execute(): void
-    {
-        if (Application::isGuest()) {
-            Application::$app->response->redirect('/login');
-        }
-    }
-}
-```
-
-## Technologies
-
-- **PHP 8.2+**: Modern PHP features
-- **PDO**: Secure database access
-- **Tailwind CSS**: Utility-first CSS framework
-- **Font Awesome**: Icon library
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/dashboard` | Main dashboard |
+| GET | `/invoices` | List all invoices |
+| GET | `/invoices/create` | New invoice form |
+| POST | `/invoices` | Create invoice |
+| GET | `/invoices/{id}` | Invoice detail |
+| GET | `/invoices/{id}/edit` | Edit invoice form |
+| POST | `/invoices/{id}` | Update invoice |
+| POST | `/invoices/{id}/delete` | Delete invoice |
+| POST | `/invoices/{id}/status` | Update status |
+| GET | `/clients` | List clients |
+| GET | `/clients/create` | Add client form |
+| POST | `/clients` | Create client |
+| GET | `/clients/{id}` | Client detail |
+| GET | `/products` | List products |
+| GET | `/products/create` | Add product form |
+| GET | `/reports` | Analytics page |
 
 ## Author
 
@@ -152,4 +166,4 @@ class AuthMiddleware extends Middleware
 
 ## License
 
-MIT License - feel free to use this project for learning purposes.
+MIT License

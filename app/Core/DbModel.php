@@ -26,6 +26,8 @@ abstract class DbModel extends Model
         }
 
         $statement->execute();
+        $pk = static::primaryKey();
+        $this->{$pk} = (int)Application::$app->db->lastInsertId();
         return true;
     }
 

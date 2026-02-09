@@ -1,125 +1,92 @@
-<div class="max-w-7xl mx-auto px-4 py-8">
-    <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-        <p class="text-gray-600 mt-1">Welcome back, <?= e($user->name ?? 'User') ?>!</p>
+<?php $user = app\Core\Application::$app->user; ?>
+<div class="flex items-center justify-between mb-8">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Dashboard</h1>
+        <p class="text-gray-500 text-sm mt-1">Welcome back, <?= e($user->name ?? 'User') ?>!</p>
     </div>
+    <a href="/invoices/create" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-500 text-white rounded-full text-sm font-medium hover:bg-primary-600 transition shadow-sm">
+        <span class="material-symbols-sharp" style="font-size:20px">add</span>New Invoice
+    </a>
+</div>
 
-    <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Total Users</p>
-                    <p class="text-3xl font-bold text-gray-800"><?= $totalUsers ?? 0 ?></p>
-                </div>
-                <div class="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-users text-indigo-600 text-xl"></i>
-                </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white rounded-2xl border border-gray-100 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-sharp text-green-600" style="font-size:22px">payments</span>
             </div>
-            <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 12% from last month</p>
+            <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">Revenue</span>
         </div>
-
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Total Projects</p>
-                    <p class="text-3xl font-bold text-gray-800">24</p>
-                </div>
-                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-folder text-green-600 text-xl"></i>
-                </div>
-            </div>
-            <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 8% from last month</p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Completed Tasks</p>
-                    <p class="text-3xl font-bold text-gray-800">156</p>
-                </div>
-                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-check-circle text-purple-600 text-xl"></i>
-                </div>
-            </div>
-            <p class="text-green-500 text-sm mt-2"><i class="fas fa-arrow-up"></i> 23% from last month</p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <div class="flex items-center justify-between">
-                <div>
-                    <p class="text-gray-500 text-sm">Revenue</p>
-                    <p class="text-3xl font-bold text-gray-800">$12.4k</p>
-                </div>
-                <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                    <i class="fas fa-dollar-sign text-yellow-600 text-xl"></i>
-                </div>
-            </div>
-            <p class="text-red-500 text-sm mt-2"><i class="fas fa-arrow-down"></i> 3% from last month</p>
-        </div>
+        <p class="text-2xl font-bold text-gray-900">$<?= number_format($stats['revenue'] ?? 0, 2) ?></p>
+        <p class="text-xs text-gray-500 mt-1">Total revenue</p>
     </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Recent Activity -->
-        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Recent Activity</h2>
-            <div class="space-y-4">
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-user-plus text-green-600"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">New user registered</p>
-                        <p class="text-gray-500 text-sm">John Doe created an account</p>
-                        <p class="text-gray-400 text-xs mt-1">2 hours ago</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-project-diagram text-blue-600"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">Project updated</p>
-                        <p class="text-gray-500 text-sm">E-commerce redesign reached 75%</p>
-                        <p class="text-gray-400 text-xs mt-1">5 hours ago</p>
-                    </div>
-                </div>
-                <div class="flex items-start">
-                    <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center mr-4">
-                        <i class="fas fa-check text-purple-600"></i>
-                    </div>
-                    <div>
-                        <p class="text-gray-800 font-medium">Task completed</p>
-                        <p class="text-gray-500 text-sm">API integration finished</p>
-                        <p class="text-gray-400 text-xs mt-1">1 day ago</p>
-                    </div>
-                </div>
+    <div class="bg-white rounded-2xl border border-gray-100 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-sharp text-blue-600" style="font-size:22px">receipt_long</span>
             </div>
+            <span class="text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-full">Invoices</span>
         </div>
-
-        <!-- Quick Actions -->
-        <div class="bg-white rounded-xl shadow-sm p-6">
-            <h2 class="text-xl font-bold text-gray-800 mb-4">Quick Actions</h2>
-            <div class="space-y-3">
-                <a href="/dashboard/users" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-users text-indigo-600"></i>
-                    </div>
-                    <span class="text-gray-700">Manage Users</span>
-                </a>
-                <a href="/profile" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-user text-green-600"></i>
-                    </div>
-                    <span class="text-gray-700">Edit Profile</span>
-                </a>
-                <a href="/contact" class="flex items-center p-3 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
-                        <i class="fas fa-envelope text-purple-600"></i>
-                    </div>
-                    <span class="text-gray-700">Contact Support</span>
-                </a>
+        <p class="text-2xl font-bold text-gray-900"><?= $stats['total_invoices'] ?? 0 ?></p>
+        <p class="text-xs text-gray-500 mt-1">Total invoices</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-gray-100 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 bg-purple-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-sharp text-purple-600" style="font-size:22px">group</span>
             </div>
+            <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded-full">Clients</span>
         </div>
+        <p class="text-2xl font-bold text-gray-900"><?= $stats['client_count'] ?? 0 ?></p>
+        <p class="text-xs text-gray-500 mt-1">Active clients</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-gray-100 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-sharp text-red-600" style="font-size:22px">warning</span>
+            </div>
+            <span class="text-xs font-medium text-red-600 bg-red-50 px-2 py-1 rounded-full">Overdue</span>
+        </div>
+        <p class="text-2xl font-bold text-gray-900">$<?= number_format($stats['overdue_amount'] ?? 0, 2) ?></p>
+        <p class="text-xs text-gray-500 mt-1">Overdue amount</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl border border-gray-100">
+    <div class="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900">Recent Invoices</h2>
+        <a href="/invoices" class="text-sm text-primary-500 hover:text-primary-600 font-medium">View all</a>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th class="px-6 py-4">Invoice</th>
+                    <th class="px-6 py-4">Client</th>
+                    <th class="px-6 py-4">Amount</th>
+                    <th class="px-6 py-4">Date</th>
+                    <th class="px-6 py-4">Status</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-50">
+                <?php if (empty($recentInvoices)): ?>
+                <tr><td colspan="5" class="px-6 py-12 text-center text-gray-400 text-sm">No invoices yet. <a href="/invoices/create" class="text-primary-500 hover:underline">Create your first invoice</a></td></tr>
+                <?php else: foreach ($recentInvoices as $inv): ?>
+                <tr class="hover:bg-gray-50/50 transition">
+                    <td class="px-6 py-4"><a href="/invoices/<?= $inv['id'] ?>" class="text-sm font-medium text-gray-900 hover:text-primary-500"><?= e($inv['invoice_number']) ?></a></td>
+                    <td class="px-6 py-4 text-sm text-gray-600"><?= e($inv['client_name'] ?? 'N/A') ?></td>
+                    <td class="px-6 py-4 text-sm font-semibold text-gray-900">$<?= number_format($inv['total'] ?? 0, 2) ?></td>
+                    <td class="px-6 py-4 text-sm text-gray-500"><?= date('M d, Y', strtotime($inv['issue_date'])) ?></td>
+                    <td class="px-6 py-4">
+                        <?php
+                        $statusColors = ['paid' => 'green', 'pending' => 'yellow', 'draft' => 'gray', 'overdue' => 'red'];
+                        $c = $statusColors[$inv['status']] ?? 'gray';
+                        ?>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-<?= $c ?>-50 text-<?= $c ?>-700"><?= ucfirst($inv['status']) ?></span>
+                    </td>
+                </tr>
+                <?php endforeach; endif; ?>
+            </tbody>
+        </table>
     </div>
 </div>
