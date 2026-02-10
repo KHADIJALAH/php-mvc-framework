@@ -57,10 +57,10 @@ class InvoiceController extends Controller
 
         if ($invoice->validate() && $invoice->save()) {
             $invoice->id = (int)Application::$app->db->pdo->lastInsertId();
-            $descriptions = $body['item_description'] ?? [];
-            $quantities = $body['item_quantity'] ?? [];
-            $prices = $body['item_price'] ?? [];
-            $productIds = $body['item_product_id'] ?? [];
+            $descriptions = is_array($body['item_description'] ?? null) ? $body['item_description'] : [];
+            $quantities = is_array($body['item_quantity'] ?? null) ? $body['item_quantity'] : [];
+            $prices = is_array($body['item_price'] ?? null) ? $body['item_price'] : [];
+            $productIds = is_array($body['item_product_id'] ?? null) ? $body['item_product_id'] : [];
             for ($i = 0; $i < count($descriptions); $i++) {
                 if (empty($descriptions[$i])) continue;
                 $item = new InvoiceItem();
@@ -139,10 +139,10 @@ class InvoiceController extends Controller
         $invoice->total = (float)$existing['total'];
         $invoice->update();
         InvoiceItem::deleteByInvoice($id);
-        $descriptions = $body['item_description'] ?? [];
-        $quantities = $body['item_quantity'] ?? [];
-        $prices = $body['item_price'] ?? [];
-        $productIds = $body['item_product_id'] ?? [];
+        $descriptions = is_array($body['item_description'] ?? null) ? $body['item_description'] : [];
+        $quantities = is_array($body['item_quantity'] ?? null) ? $body['item_quantity'] : [];
+        $prices = is_array($body['item_price'] ?? null) ? $body['item_price'] : [];
+        $productIds = is_array($body['item_product_id'] ?? null) ? $body['item_product_id'] : [];
         for ($i = 0; $i < count($descriptions); $i++) {
             if (empty($descriptions[$i])) continue;
             $item = new InvoiceItem();
