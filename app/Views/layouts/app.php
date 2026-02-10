@@ -18,6 +18,20 @@
         ::-webkit-scrollbar-track{background:transparent}
         ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:3px}
         ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,0.2)}
+
+        @media print {
+            @page { margin: 15mm; size: A4; }
+            body { background: white !important; }
+            aside { display: none !important; }
+            .no-print { display: none !important; }
+            .flash-message { display: none !important; }
+            main { overflow: visible !important; }
+            .flex.h-screen { display: block !important; height: auto !important; overflow: visible !important; }
+            main .px-8, main .lg\:px-10 { padding: 0 !important; }
+            main .py-8 { padding-top: 0 !important; padding-bottom: 0 !important; }
+            .animate-in { animation: none !important; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 font-sans">
@@ -83,7 +97,7 @@
     <!-- Main Content -->
     <main class="flex-1 overflow-y-auto bg-slate-50">
         <?php if(hasFlash('success')):?>
-        <div class="mx-8 mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-700 text-sm flex items-center gap-3 animate-in shadow-sm">
+        <div class="mx-8 mt-6 p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-emerald-700 text-sm flex items-center gap-3 animate-in shadow-sm no-print">
             <div class="w-8 h-8 bg-emerald-100 rounded-xl flex items-center justify-center shrink-0">
                 <span class="material-symbols-sharp text-emerald-600" style="font-size:18px">check_circle</span>
             </div>
@@ -91,7 +105,7 @@
         </div>
         <?php endif;?>
         <?php if(hasFlash('error')):?>
-        <div class="mx-8 mt-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm flex items-center gap-3 animate-in shadow-sm">
+        <div class="mx-8 mt-6 p-4 bg-red-50 border border-red-200 rounded-2xl text-red-700 text-sm flex items-center gap-3 animate-in shadow-sm no-print">
             <div class="w-8 h-8 bg-red-100 rounded-xl flex items-center justify-center shrink-0">
                 <span class="material-symbols-sharp text-red-600" style="font-size:18px">error</span>
             </div>

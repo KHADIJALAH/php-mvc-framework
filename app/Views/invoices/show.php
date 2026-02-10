@@ -3,7 +3,7 @@ $inv = $invoice;
 $statusColors = ['paid'=>'green','pending'=>'yellow','draft'=>'gray','overdue'=>'red'];
 $c = $statusColors[$inv['status']] ?? 'gray';
 ?>
-<div class="flex items-center justify-between mb-8">
+<div class="flex items-center justify-between mb-8 no-print">
     <div class="flex items-center gap-4">
         <a href="/invoices" class="p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition">
             <span class="material-symbols-sharp" style="font-size:22px">arrow_back</span>
@@ -38,7 +38,8 @@ $c = $statusColors[$inv['status']] ?? 'gray';
     </div>
 </div>
 
-<div class="grid lg:grid-cols-3 gap-6">
+<style>@media print { .invoice-grid { display: block !important; } .invoice-grid > .lg\:col-span-2 { width: 100% !important; max-width: 100% !important; } }</style>
+<div class="grid lg:grid-cols-3 gap-6 invoice-grid">
     <div class="lg:col-span-2 space-y-6">
         <div class="bg-white rounded-2xl border border-gray-100 p-8">
             <div class="flex justify-between mb-8">
@@ -99,7 +100,7 @@ $c = $statusColors[$inv['status']] ?? 'gray';
         <?php endif; ?>
     </div>
 
-    <div class="space-y-6">
+    <div class="space-y-6 no-print">
         <div class="bg-white rounded-2xl border border-gray-100 p-6">
             <h3 class="text-sm font-semibold text-gray-900 mb-4">Quick Actions</h3>
             <div class="space-y-2">
